@@ -1,6 +1,21 @@
 ---
 import Navigation from "../components/navigation.astro";
+
 const pageTitle = "About Me";
+const identity = {
+  firstName: "Gray",
+  country: "'merica",
+  occupation: "Developer",
+  hobbies: ["writing", "story development", "software engineering", "videography"]
+};
+const skills = ["HTML", "CSS", "JavaScript", "Astro", "Writing Docs"];
+
+function randomHobby() {
+  let random = identity.hobbies[Math.floor(Math.random() * identity.hobbies.length)]
+  return random
+}
+
+const skillColor = "purple";
 ---
 <html lang="en">
     <head>
@@ -9,6 +24,16 @@ const pageTitle = "About Me";
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
+        <style define:vars={{skillColor}}>
+            h1 {
+              color: purple;
+              font-size: 4rem;
+            }
+            .skill {
+                color: var(--skillColor);
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body>
         <Navigation />
@@ -23,5 +48,16 @@ const pageTitle = "About Me";
         </p>
     
         <p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
+
+        <p>Here are a few facts about me:</p>
+        <ul>
+        <li>My name is {identity.firstName}.</li>
+        <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
+        <li>A random hobby I have is: {randomHobby()}</li>
+        </ul>
+        <p>My skills are:</p>
+        <ul>
+            {skills.map(skill => <li class="skill">{skill}</li>)}
+        </ul>
     </body>
 </html>
